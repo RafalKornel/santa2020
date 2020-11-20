@@ -3,8 +3,8 @@ from wtforms import StringField, SubmitField, FormField, FieldList
 from wtforms.form import Form
 from wtforms.validators import DataRequired, Length, Regexp
 
-reg_name = Regexp("^[a-zA-Z]*$", message="Name can only contain letters.")
-reg_group = Regexp("^[a-zA-Z0-9_-]*$", message="Group name/key can only contain letters, numbers or '_' and '-'.")
+reg_name = Regexp("^[a-zA-ZąćęłńóśźżĄĘŁŃÓŚŹŻ ]*$", message="Name can only contain letters.")
+reg_group = Regexp("^[a-zA-Z0-9ąćęłńóśźżĄĘŁŃÓŚŹŻ _-]*$", message="Group name/key can only contain letters, numbers or '_' and '-'.")
 
 class NameEntryForm(Form):
     name = StringField(validators=[Length(1, 32), reg_name])

@@ -13,12 +13,35 @@
     <div class="main-container">
 
         <div class="user_list">
+            {% if not session["user"] %}
+            <form action="" method="post">
+                <label for="name">Jak masz na imie?</label>
+                <input id="name" name="name" class="name-field" type="text" value="" autocomplete="off">
+
+                <button type="" onclick="">Wyślij</button>
+            </form>
+
+            {% else %}
+
             <button type="" onclick="draw()">Losuj</button>
+            
+            {% endif %}
+
         </div>
        
        <div class="divisor"></div>
        
        <div class="animation-element" id="anim">
+
+        {% if session["user"] %}
+
+        {% for user in users %}
+            <p class="name">{{ user.name }}</p>
+        {% endfor %}
+
+        {% endif %}
+
+        <!--
         <p class="name">Rafal</p>
         <p class="name">Janek</p>
         <p class="name">Asia</p>
@@ -29,6 +52,7 @@
         <p class="name">Ivan</p>
         <p class="name">Daniel</p>
         <p class="name">Robert</p>
+        -->
 
        </div>
        
