@@ -20,14 +20,23 @@ def create_group():
             flash("Group already exists!")
             return render_template("create_group.html", form=form)
 
+
+        names = list(set(map(lambda e : e["name"].lower().capitalize() , form.names.data)))
+
         group = Group(
             name = form.group_name.data,
             key = form.key.data,
-            users = [ User(name=entry["name"]) for entry in form.names.data ]
+            users = [ User(name=name) for name in names ]
             )
         
         db.session.add(group)
         db.session.commit()
 
         flash("Success!")
+    elif len(form.errors) > 0:
+        for err in form.errors.items():
+            err_name, errors = err
+            
+            flash(list( errors[0].values() )[0][0] )
+
     return render_template("create_group.html", form=form)
