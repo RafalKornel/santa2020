@@ -18,5 +18,4 @@ class Group(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), unique=True)
-    key = db.Column(db.String(32), unique=True)
     users = db.relationship("User", backref="group")

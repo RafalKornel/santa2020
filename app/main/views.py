@@ -5,9 +5,9 @@ from ..models import Group, User
 from .. import db
 import random
 
-@main.route("/<key>", methods=["GET"])
-def index_get(key):
-    group = Group.query.filter_by(key=key).first()
+@main.route("/<group_name>", methods=["GET"])
+def index_get(group_name):
+    group = Group.query.filter_by(name=group_name).first()
 
     if group is None:
         return redirect(url_for(".create_group"))
@@ -21,12 +21,12 @@ def index_get(key):
     return render_template("index.html", users=group.users)
 
 
-@main.route("/<key>", methods=["POST"])
-def index_post(key):
+@main.route("/<group_name>", methods=["POST"])
+def index_post(group_name):
     form = NameEntryForm()
     form.name.data = request.form["name"] or ""
 
-    group = Group.query.filter_by(key=key).first()
+    group = Group.query.filter_by(name=group_name).first()
 
     if form.validate():
         name = form.name.data.strip().lower().capitalize()
@@ -35,12 +35,12 @@ def index_post(key):
         if user is not None:
             session["user"] = user.id
 
-    return redirect( url_for(".index_get", key=key) )
+    return redirect( url_for(".index_get", group_name=group_name) )
 
 
-@main.route("/draw/<key>")
-def draw(key):
-    group = Group.query.filter_by(key=key).first()
+@main.route("/draw/<group_name>")
+def draw(group_name):
+    group = Group.query.filter_by(name=group_name).first()
 
     if group is None:
         return "Group not found", 400
@@ -82,9 +82,8 @@ def create_group():
     
     if form.validate_on_submit():
         group_by_name = Group.query.filter_by(name=form.group_name.data).first()
-        group_by_key  = Group.query.filter_by(key=form.key.data).first()
         
-        if group_by_name or group_by_key:
+        if group_by_name:
             flash("Group already exists!")
             return redirect( url_for(".create_group"))
 
@@ -93,7 +92,6 @@ def create_group():
 
         group = Group(
             name = form.group_name.data,
-            key = form.key.data,
             users = [ User(name=name) for name in names ]
             )
         
@@ -101,7 +99,7 @@ def create_group():
         db.session.commit()
 
         flash("Success!")
-        return redirect( url_for(".index_get", key=group.key))
+        return redirect( url_for(".index_get", group_name=group.name))
 
     elif len(form.errors) > 0:
         for err in form.errors.items():
@@ -110,10 +108,3 @@ def create_group():
             flash(list( errors[0].values() )[0][0] )
 
     return render_template("create_group.html", form=form)
-
-
-@main.route("/test1")
-def test():
-    session["logged"] = "true";
-
-    return "ok"
