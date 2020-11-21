@@ -9,29 +9,33 @@ let RAF;
 let interval;
 let timeouts;
 let current_person;
+let stopOn = "";
 
 
 for (let i = 0; i < names.length; i++) {
     let e = names[i];
-    let value = (i / names.length * 100) % 100;
-    let y = value - height / 2
+    let y = (i * height) % 100;
     e.style.top = `${y}%`;
-    e.style.opacity = `${Math.sin(value * Math.PI / 100) * 100}%`;
+    e.style.opacity = `${Math.sin(y * Math.PI / 100) * 100}%`;
 }
 
 function animate(n) {
+
     for (let i = 0; i < names.length; i++) {
         let e = names[i];
-        let value = (i / names.length * 100 + n * speed) % 100;
-        let y = value - height / 2
-        if (Math.abs(y - 50) < height / 2 - 1) {
-            current_person = e;
-        }
-        else {
-            e.style.background = "";
-        }
+        let y = (i * height + n * speed) % 100;
+
         e.style.top = `${y}%`;
-        e.style.opacity = `${Math.sin(value * Math.PI / 100) * 100}%`;
+        e.style.opacity = `${Math.sin(y * Math.PI / 100) * 100}%`;
+
+        if (Math.abs(y  - 50) < 1) {
+            if (stopOn == e.textContent) 
+            {
+                current_person = e;
+                stopAnimation();
+                return; 
+            }
+        }
     }
 
     n += 1;
@@ -39,19 +43,19 @@ function animate(n) {
     RAF = requestAnimationFrame(() => animate(n))
 }
 
-function stopOn(person) {
-    if (current_person.textContent == person) {
-        cancelAnimationFrame(RAF);
-        clearInterval(interval);
-        current_person.style.color = "red";
-        timeouts = undefined;
-    }
+
+function stopAnimation() {
+    cancelAnimationFrame(RAF);
+    clearInterval(interval);
+    current_person.style.color = "red";
+    stopOn = undefined;
+    timeouts = undefined;
 }
 
 async function draw() {
     if (timeouts) return;
 
-    current_person.style.color = "black";
+    if (current_person) current_person.style.color = "black";
 
     cancelAnimationFrame(RAF);
     animate(0);
@@ -65,16 +69,14 @@ async function draw() {
 
     let draftName = draft["name"];
 
-    //let target = name_values[Math.floor(Math.random() * name_values.length)];
-    
     speed = 10;
     timeouts = [
-        setTimeout(() => speed = 5, 2000),
-        setTimeout(() => speed = 2, 4000),
+        setTimeout(() => speed = 7, 2000),
+        setTimeout(() => speed = 4, 4000),
+        setTimeout(() => speed = 2.5, 5000),
+        setTimeout(() => speed = 1.5, 5500),
         setTimeout(() => speed = 1, 6000),
-        setTimeout(() => {
-            interval = setInterval(() => stopOn(draftName), 100);
-        }, 8000),
+        setTimeout(() => stopOn = draftName, 7000),
     ]
 }
 

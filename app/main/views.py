@@ -1,5 +1,5 @@
 from . import main
-from flask import render_template, flash, redirect, url_for, session, request, Response
+from flask import render_template, flash, redirect, url_for, session, request
 from .forms import GroupForm, NameEntryForm
 from ..models import Group, User
 from .. import db
@@ -8,18 +8,29 @@ import random
 @main.route("/<key>", methods=["GET"])
 def index_get(key):
     group = Group.query.filter_by(key=key).first()
+
     if group is None:
         return redirect(url_for(".create_group"))
+
+    if "user" in session:
+        user = User.query.get(session["user"])
+        if user:
+            if user.group_id != group.id:
+                session["user"] = ""
+
     return render_template("index.html", users=group.users)
 
 
 @main.route("/<key>", methods=["POST"])
 def index_post(key):
     form = NameEntryForm()
-    form.name.data = request.form["name"]
+    form.name.data = request.form["name"] or ""
+
+    group = Group.query.filter_by(key=key).first()
+
     if form.validate():
         name = form.name.data.strip().lower().capitalize()
-        user = User.query.filter_by(name=name).first()
+        user = User.query.filter_by(group=group).filter_by(name=name).first()
 
         if user is not None:
             session["user"] = user.id
@@ -47,7 +58,11 @@ def draw(key):
 
     users_left = User.query.filter_by(group=group).filter_by(was_drafted=False).all()
 
-    i = random.randint(0, len(users_left))
+    if user in users_left:
+        users_left.pop( users_left.index(user) )
+
+
+    i = random.randint(0, len(users_left) - 1)
     drafted_user = users_left[i]
     drafted_user.was_drafted = True
     db.session.add(drafted_user)
@@ -86,7 +101,7 @@ def create_group():
         db.session.commit()
 
         flash("Success!")
-        return redirect( url_for(".index", key=group.key))
+        return redirect( url_for(".index_get", key=group.key))
 
     elif len(form.errors) > 0:
         for err in form.errors.items():
