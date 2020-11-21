@@ -1,5 +1,6 @@
 from . import db
 from random import randint
+from hashlib import md5
 
 class User(db.Model):
     __tablename__ = "users"
@@ -33,5 +34,12 @@ class Group(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), unique=True)
+    name_hash = db.Column(db.String(200))
     secure = db.Column(db.Boolean)
     users = db.relationship("User", backref="group")
+
+    def __init__(self, **kwargs):
+        super(Group, self).__init__(**kwargs)
+
+        if self.secure:
+            self.name_hash = md5(self.name.encode("utf-8")).hexdigest()

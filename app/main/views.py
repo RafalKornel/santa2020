@@ -105,12 +105,6 @@ def create_group():
         names = list(set(map(lambda e : e["name"].lower().capitalize() , form.names.data)))
         users = [ User(name=name) for name in names]
 
-        #users = list(set(map(lambda e : {
-        #    "name": e["name"].lower().capitalize(),
-        #    "pin" : e["pin"] if "pin" in e else "0000",
-        #}, form.names.data)))
-        #users = [ User(name=name) for name in names ]
-
         group = Group(
             name = form.group_name.data,
             secure = form.secure.data,
@@ -121,7 +115,7 @@ def create_group():
         db.session.commit()
 
         if group.secure:
-            return redirect( url_for(".group_overview", group_name=group.name))
+            return redirect( url_for(".group_overview", group_hash=group.name_hash))
 
         return redirect( url_for(".index_get", group_name=group.name))
 
@@ -134,9 +128,9 @@ def create_group():
     return render_template("create_group.html", form=form)
 
 
-@main.route("/overview/<group_name>")
-def group_overview(group_name):
-    group = Group.query.filter_by(name=group_name).first()
+@main.route("/overview/<group_hash>")
+def group_overview(group_hash):
+    group = Group.query.filter_by(name_hash=group_hash).first()
 
     if group is None:
         return redirect(url_for(".create_group"))
