@@ -31,6 +31,13 @@
         {{ form.group_name(class="form-control") }}
     </div>
 
+    <div class="checkbox">
+        <label for="secure">
+            <input type="checkbox" name="secure" id="secure" value="y">
+            Secure
+        </label>
+    </div>
+
     <div class="form-group inner-group" id="names-subform">
         {{ form.names.label(class="control-label") }}
 

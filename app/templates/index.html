@@ -15,8 +15,12 @@
         <div class="user_list">
             {% if not session["user"] %}
             <form action="" method="post">
-                <label for="name">Jak masz na imie?</label>
+                <label for="name">Jak masz na imie?</label>                
                 <input id="name" name="name" class="name-field" type="text" value="" autocomplete="off">
+                {% if group.secure %}
+                <label for="pin">PIN:</label>                
+                <input id="pin" name="pin" class="name-field" type="text" value="" autocomplete="off">
+                {% endif %}
 
                 <button type="" onclick="">Wyślij</button>
             </form>
@@ -35,7 +39,7 @@
 
         {% if session["user"] %}
 
-        {% for user in users %}
+        {% for user in group.users %}
             <p class="name">{{ user.name }}</p>
         {% endfor %}
 

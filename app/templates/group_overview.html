@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+    <h1>Group {{ group.name }}</h1>
+
+    <ul class="users">
+        {% for user in group.users %}
+        <li class="user">
+            <p class="user-name">{{ user.name }}</p>
+            <p class="user-pin">{{ user.pin }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('.index_get', group_name=group.name) }}">Go to group page</a>
+
+
+{% endblock %}
