@@ -9,10 +9,7 @@ class User(db.Model):
     name = db.Column(db.String(32))
     group_id = db.Column(db.Integer, db.ForeignKey("groups.id"))
     pin = db.Column(db.String(4))
-    was_drafted = db.Column(db.Boolean, default=False)
-    drafted = db.Column(db.Boolean, default=False)
     drafted_person_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-
 
     @staticmethod
     def generate_pin():

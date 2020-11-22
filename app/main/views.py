@@ -3,7 +3,10 @@ from flask import render_template, flash, redirect, url_for, session, request
 from .forms import GroupForm, NameEntryForm
 from ..models import Group, User
 from .. import db
-import random
+from ..utilities import permutation_without_fixed_points
+
+
+    
 
 @main.route("/<group_name>", methods=["GET"])
 def index_get(group_name):
@@ -67,27 +70,7 @@ def draw(group_name):
     if user is None:
         return "User not logged (try clearing cache)", 400
 
-    if user.drafted:
-        return {"name": User.query.get(user.drafted_person_id).name}, 200
-
-    users_left = User.query.filter_by(group=group).filter_by(was_drafted=False).all()
-
-    if user in users_left:
-        users_left.pop( users_left.index(user) )
-
-
-    i = random.randint(0, len(users_left) - 1)
-    drafted_user = users_left[i]
-    drafted_user.was_drafted = True
-    db.session.add(drafted_user)
-
-    user.drafted_person_id = drafted_user.id
-    user.drafted = True
-    db.session.add(user)
-
-    db.session.commit()
-
-    return {"name": drafted_user.name}, 200
+    return User.query.get(user.drafted_person_id).name, 200
     
 
 @main.route("/", methods=["GET", "POST"])
@@ -101,16 +84,25 @@ def create_group():
             flash("Group already exists!")
             return redirect( url_for(".create_group"))
 
-
         names = list(set(map(lambda e : e["name"].lower().capitalize() , form.names.data)))
         users = [ User(name=name) for name in names]
+
+        for user in users:
+            db.session.add(user)
+        
+        db.session.flush()
+
+        perm = permutation_without_fixed_points( len(users) )
+
+        for i, u in enumerate(perm):
+            users[i].drafted_person_id = users[u].id
 
         group = Group(
             name = form.group_name.data,
             secure = form.secure.data,
             users = users,
             )
-        
+
         db.session.add(group)
         db.session.commit()
 

@@ -63,20 +63,18 @@ async function draw() {
     let splicedScheme = window.location.href.split("/");
     let group = splicedScheme[ splicedScheme.length - 1];
 
-    let draft = await fetch(`/draw/${group}`)
-                      .then(res => res.json())
+    let draftName = await fetch(`/draw/${group}`)
+                      .then(res => res.text())
                       .catch(err => console.error(err));
-
-    let draftName = draft["name"];
 
     speed = 10;
     timeouts = [
         setTimeout(() => speed = 7, 2000),
-        setTimeout(() => speed = 4, 4000),
-        setTimeout(() => speed = 2.5, 5000),
-        setTimeout(() => speed = 1.5, 5500),
-        setTimeout(() => speed = 1, 6000),
-        setTimeout(() => stopOn = draftName, 7000),
+        setTimeout(() => speed = 5, 4000),
+        setTimeout(() => speed = 3, 5000),
+        setTimeout(() => speed = 1.5, 6000),
+        setTimeout(() => speed = 1, 7000),
+        setTimeout(() => stopOn = draftName, 8000),
     ]
 }
 
