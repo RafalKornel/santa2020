@@ -4,8 +4,6 @@ from .forms import GroupForm, NameEntryForm
 from ..models import Group, User
 from .. import db
 from ..utilities import permutation_without_fixed_points
-
-
     
 
 @main.route("/<group_name>", methods=["GET"])
