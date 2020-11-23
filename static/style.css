@@ -140,6 +140,10 @@ body {
   margin-left: 10px;
 }
 
+.form-group {
+  margin-bottom: 5px;
+}
+
 
 @media screen and (max-width: 768px) {
   .name-form-group .name-field {
