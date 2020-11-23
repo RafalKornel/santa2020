@@ -1,0 +1,121 @@
+body, html {
+    height: 100%;
+  }
+  
+body {
+    font-family: "Poppins", "sans-serif";
+    margin: 0;
+    width: 100vw;
+    display: flex;
+    overflow: hidden;
+    background: #eee;
+  }
+
+.card {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    width: 3em;
+    height: 3em;
+    border-radius: 30px;
+    background: #8bcdcd;
+    transition: all 500ms ease;
+    clip-path: circle(50% at 50% 50%);
+    color: rgba(0, 0, 0, 0);
+    z-index: 2;
+  }
+
+.card:hover a , .card a{
+  color: rgba(252, 248, 118, 1); 
+}
+
+#info {
+  top: 20px;
+  left: 20px;
+}
+
+#info:hover {
+  width: 400px;
+  height: 600px;
+}
+ 
+.card span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 1.8em;
+    transform: translate(-50%, -50%);
+    color: rgba(252, 248, 118, 1); 
+    cursor: default;
+  }
+  
+.card:hover {
+    clip-path: circle(80%);
+    background: #3797a4;
+    color: rgba(252, 248, 118, 1); 
+  }
+  
+.card:hover p {
+    color: rgba(168, 242, 251, 1);
+  }
+  
+.card:hover span, .card:hover span a {
+    color: rgba(0, 0, 0, 0);  
+  }
+  
+
+.card h1 {
+    text-align: center;
+    line-height: 1em;
+    font-size: 2.4em;
+  }
+  
+.card h2 {
+    font-size: 1.3em;
+    font-weight: 500;
+    margin-top: auto;
+  }
+  
+.card p {
+    line-height: 1.5em;
+    font-size: 1.1em;
+    margin-top: auto;
+    color: rgba(168, 242, 251, 0);
+    transition: all 500ms ease;
+  }
+
+
+.main-container {
+    margin: auto;
+    display: flex;
+    height: 40%;
+  }
+  
+.main-container > div {
+    margin: auto 20px;
+  }
+  
+.divisor {
+    width: 5px;
+    height: 100%;
+    background: #c1c1c1;
+  }
+  
+.user_list form {
+    display: flex;
+    flex-direction: column;
+  }
+
+.animation-element {
+      position: relative;
+      height: 100%;
+      width: 200px;
+      transform: translate(0, -0.5em);
+  }
+
+.name {
+      transform-origin: 50% -50%;
+      position: absolute;
+      margin: 0;
+  }
