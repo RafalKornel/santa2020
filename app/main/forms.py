@@ -15,5 +15,5 @@ class NameEntryForm(Form):
 class GroupForm(FlaskForm):
     group_name  = StringField("Group name", validators=[DataRequired(), Length(1, 32), reg_group])
     secure      = BooleanField("Secure")
-    names       = FieldList( FormField(NameEntryForm), label="List of names", min_entries=1 )
+    names       = FieldList( FormField(NameEntryForm), label="Names of users", min_entries=1 )
     submit      = SubmitField("Create")

@@ -21,6 +21,7 @@ function copyNameNode() {
     console.log("adding ", i);
     let idStr = `names-${i}-name`;
     let copy = node.cloneNode(true);
+    copy.id = `name-field-${i}`;
     copy.querySelector("label").htmlFor = idStr;
     copy.querySelector("input").value = "";
     copy.querySelector("input").id = idStr;

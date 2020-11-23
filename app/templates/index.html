@@ -1,21 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Santa2020</title>
+{% extends "base.html" %}
 
-    <link rel="stylesheet" href="static/style.css">
+{% block head %}
+{{ super() }}
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
-</head>
-<body>
+<style>
+    body {
+        display: flex;
+        overflow: hidden;
+    }
+
+    .container {
+        width: 100vw;
+        display: flex;
+    }
+</style>
+
+{% endblock %}
+
+{% block page_content %}
 
     <div class="card" id="info">
         <span>i</span>
         <h1>What's going on?</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas hic commodi quam veniam esse quibusdam magnam nisi neque optio est.</p>
+        <p> Type your name, and optionally PIN code (if you've received one from creator of group)
+            to log in, then hit 'draw' button to spin the wheel!
+        </p>
       </div>
 
 
@@ -31,12 +40,12 @@
                 <input id="pin" name="pin" class="name-field" type="text" value="" autocomplete="off">
                 {% endif %}
 
-                <button type="" onclick="">Wyślij</button>
+                <button class="btn btn-primary" type="" onclick="">Enter</button>
             </form>
 
             {% else %}
 
-            <button onclick="draw()">Losuj</button>
+            <button class="btn btn-primary" onclick="draw()">Draw</button>
             
             {% endif %}
 
@@ -59,5 +68,5 @@
      </div>
 
     <script src="static/main.js"></script>
-</body>
-</html>
+
+{% endblock %}

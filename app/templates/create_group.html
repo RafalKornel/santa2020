@@ -6,8 +6,9 @@
     body {
         overflow: scroll;
     }
+
     .inner-group {
-         margin: 10px 5%;
+        margin: 10px 5%;
     }
 
     .form-row {
@@ -39,24 +40,35 @@
             <input type="checkbox" name="secure" id="secure" value="y">
             Secure
         </label>
+        <p>If you select "secure" checkbox, the server will generate pin for each user.
+            You then have to send each user their pin, so they can enter application.
+            This provides additional security, because it's harder to peek other user's
+            roll result.
+        </p>
     </div>
 
     <div class="form-group inner-group" id="names-subform">
         {{ form.names.label(class="control-label") }}
 
         {% for name in form.names %}
-            <div class="form-group">
-                <label for="names-{{loop.index0}}-name">Name: </label>
-                <input id="names-{{loop.index0}}-name" class="name-field" name="names-{{loop.index0}}-name" type="text" value="">
+        <div class="form-group" id="name-field-{{loop.index0}}">
+            <label for="names-{{loop.index0}}-name"></label>
+            <div class="name-form-group">
+                <input id="names-{{loop.index0}}-name" class="name-field" name="names-{{loop.index0}}-name" type="text"
+                    value="">
+                <input type="button" class="btn btn-danger remove" name="remove" value="-"
+                    onclick="this.parentElement.parentElement.remove()">
             </div>
+
+
+        </div>
         {% endfor %}
     </div>
 
-    <div class="form-row"> 
-        <input type="button" class="btn btn-default" id="add" name="add" value="Add name" onclick="copyNameNode()">
+    <div class="form-row">
+        <input type="button" class="btn btn-default add" id="add" name="add" value="+" onclick="copyNameNode()">
         <input type="submit" class="btn btn-primary" id="submit" name="submit" value="Create">
     </div>
-
 
 </form>
 

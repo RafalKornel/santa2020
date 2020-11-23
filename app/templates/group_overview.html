@@ -7,8 +7,7 @@
     <ul class="users">
         {% for user in group.users %}
         <li class="user">
-            <p class="user-name">{{ user.name }}</p>
-            <p class="user-pin">{{ user.pin }}</p>
+            <p class="user-name">{{ user.name }} <strong>{{ user.pin }}</strong> </p>
         </li>
         {% endfor %}
     </ul>

@@ -1,8 +1,18 @@
 {% extends "bootstrap/base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
+{% block head %}
+{{ super() }}
 
-{% block title %}Template page{% endblock %}
+<link rel="stylesheet" href="/static/style.css">
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block title %}santa2020{% endblock %}
 
 {% block content %}
 <div class="container">

@@ -6,16 +6,25 @@ body {
     font-family: "Poppins", "sans-serif";
     margin: 0;
     width: 100vw;
-    display: flex;
-    overflow: hidden;
+    font-size: 1.5em;
     background: #eee;
+  }
+
+  .main-container {
+    margin: auto;
+    display: flex;
+    height: 50%;
+  }
+  
+.main-container > div {
+    margin: auto 30px;
   }
 
 .card {
     position: absolute;
     display: flex;
     flex-direction: column;
-    margin: 20px;
+    margin: 10px;
     width: 3em;
     height: 3em;
     border-radius: 30px;
@@ -24,6 +33,7 @@ body {
     clip-path: circle(50% at 50% 50%);
     color: rgba(0, 0, 0, 0);
     z-index: 2;
+    cursor: default;
   }
 
 .card:hover a , .card a{
@@ -36,8 +46,8 @@ body {
 }
 
 #info:hover {
-  width: 400px;
-  height: 600px;
+  width: 250px;
+  height: 300px;
 }
  
 .card span {
@@ -67,33 +77,16 @@ body {
 
 .card h1 {
     text-align: center;
-    line-height: 1em;
-    font-size: 2.4em;
-  }
-  
-.card h2 {
-    font-size: 1.3em;
-    font-weight: 500;
-    margin-top: auto;
+    line-height: 1.3em;
+    font-size: 2em;
   }
   
 .card p {
     line-height: 1.5em;
     font-size: 1.1em;
-    margin-top: auto;
     color: rgba(168, 242, 251, 0);
+    margin: 1.3em;
     transition: all 500ms ease;
-  }
-
-
-.main-container {
-    margin: auto;
-    display: flex;
-    height: 40%;
-  }
-  
-.main-container > div {
-    margin: auto 20px;
   }
   
 .divisor {
@@ -107,11 +100,16 @@ body {
     flex-direction: column;
   }
 
+.user_list input {
+  margin-bottom: 20px;
+}
+
 .animation-element {
       position: relative;
       height: 100%;
       width: 200px;
       transform: translate(0, -0.5em);
+      font-size: 1.2em;
   }
 
 .name {
@@ -119,3 +117,36 @@ body {
       position: absolute;
       margin: 0;
   }
+
+.users li {
+  list-style: none;
+  margin: 20px 0px;
+}
+
+.checkbox p {
+  font-size: 0.8em;
+  color: rgb(112, 112, 112);
+}
+
+#names-subform {
+  margin-top: 2em;
+}
+
+.name-form-group {
+  display: flex;
+}
+
+.name-form-group .remove {
+  margin-left: 10px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .name-form-group .name-field {
+    width: 100%;
+  }
+
+  .main-container > div {
+    margin: auto 10px;
+  }
+}
