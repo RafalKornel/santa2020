@@ -40,7 +40,7 @@
             <input type="checkbox" name="secure" id="secure" value="y">
             Secure
         </label>
-        <p>If you select "secure" checkbox, the server will generate pin for each user.
+        <p class="quiet">If you select "secure" checkbox, the server will generate pin for each user.
             You then have to send each user their pin, so they can enter application.
             This provides additional security, because it's harder to peek other user's
             roll result.
@@ -49,6 +49,7 @@
 
     <div class="form-group inner-group" id="names-subform">
         {{ form.names.label(class="control-label") }}
+        <p class="quiet">Names can only contain letters and spaces.</p>
 
         {% for name in form.names %}
         <div class="form-group" id="name-field-{{loop.index0}}">

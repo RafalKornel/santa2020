@@ -1,6 +1,6 @@
 from . import main
 from flask import render_template, flash, redirect, url_for, session, request
-from .forms import GroupForm, NameEntryForm
+from .forms import GroupForm, NameEntryForm, reg_name
 from ..models import Group, User
 from .. import db
 from ..utilities import permutation_without_fixed_points
@@ -110,10 +110,11 @@ def create_group():
         return redirect( url_for(".index_get", group_name=group.name))
 
     elif len(form.errors) > 0:
-        for err in form.errors.items():
-            err_name, errors = err
-
-            flash(list( errors[0].values() )[0][0] )
+        for field, err in form.errors.items():
+            if field == "names":
+                flash(reg_name.message)
+            else:
+                flash(err[0])
 
     return render_template("create_group.html", form=form)
 
