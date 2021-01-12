@@ -9,7 +9,7 @@ It's very minimalistic, there are 3 screens.
 When you enter the applictaion, you see screen responsible for creating group. 
 There, you specify usernames, and optionally provide keys (increasing security).
 
-<img align="left" src="gifs/create.gif">
+<img align="center" width="400" src="gifs/create.gif">
 
 
 
@@ -17,13 +17,13 @@ After that, you are redirected to the overview screen, where you see all member,
 and they keys (if you enabled secure mode). You will also get there a link, that you
 should send to group members. 
 
-<img align="left" src="gifs/overview.png">
+<img align="center" src="gifs/overview.png">
 
 Upon this link you will see prompt, asking your name 
 (and optionally your key), after providing those you will be able to click "draw" button,
 and see who you drafted.
 
-<img align="left" src="gifs/draw.gif">
+<img align="center" width="400" src="gifs/draw.gif">
 
 ### Installing 
 If you are using linux (bash), you can clone repository, and
