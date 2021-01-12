@@ -8,11 +8,15 @@ You can try it here: [santa2020](https://santa2020.herokuapp.com/) (it's hosted 
 It's very minimalistic, there are 3 screens. 
 When you enter the applictaion, you see screen responsible for creating group. 
 There, you specify usernames, and optionally provide keys (increasing security).
+![](gifs/create.gif)
 After that, you are redirected to the overview screen, where you see all member,
 and they keys (if you enabled secure mode). You will also get there a link, that you
-should send to group members. Upon this link you will see prompt, asking your name 
+should send to group members. 
+![](gifs/overview.png)
+Upon this link you will see prompt, asking your name 
 (and optionally your key), after providing those you will be able to click "draw" button,
 and see who you drafted.
+![](gifs/draw.gif)
 
 ### Installing 
 If you are using linux (bash), you can clone repository, and
