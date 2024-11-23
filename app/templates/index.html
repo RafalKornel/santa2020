@@ -27,9 +27,11 @@
 </style>
 
 {% endblock %} {% block page_content %}
+
 <div class="main-container">
 
-    <img src="static/background3.jpg"></img>
+    <img id="background" src="static/background3.jpg"></img>
+
 
   <div class="animation-element" id="anim">
     {% if session["user"] %} {% for user in group.users %}
