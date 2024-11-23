@@ -54,6 +54,30 @@ export FLASK_APP=santa.py
 flask run
 ```
 
+### Docker
+To run application in docker, just use
+```
+docker compose up
+```
+
+Everything should work out of the box.
+
+### Database
+To initalize database run following scripts:
+
+``` terminal
+python manage.py db init
+python manage.py db migrate
+python manage.py db upgrade
+```
+
+In docker: 
+``` terminal
+docker exec -it python_app_web python manage.py db init
+docker exec -it python_app_web python manage.py db migrate
+docker exec -it python_app_web python manage.py db upgrade
+```
+
 ### Tech stack
 In process of development of this app (which was very short btw), I used following technologies:
 - python3 with Flask
