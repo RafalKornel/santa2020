@@ -105,12 +105,14 @@ body {
 }
 
 .animation-element {
-      position: relative;
-      height: 100%;
-      width: 200px;
-      transform: translate(0, -0.5em);
-      font-size: 1.2em;
-  }
+  position: relative;
+  height: 100%;
+  width: 200px;
+  -webkit-transform: translate(0, -0.5em);
+  transform: translate(0, -0.5em);
+  font-size: 1.2em;
+}
+
 
 .name {
       transform-origin: 50% -50%;
