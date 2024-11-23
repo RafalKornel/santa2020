@@ -1,87 +1,79 @@
-{% extends "base.html" %}
-
-{% block head %}
-{{ super() }}
+{% extends "base.html" %} {% block head %} {{ super() }}
 
 <style>
-    body {
-        display: flex;
-        overflow: hidden;
-    }
+  body {
+    display: flex;
+    overflow: hidden;
+  }
 
-    .container {
-        width: 100vw;
-        display: flex;
-    }
+  .container {
+    width: 100vw;
+    display: flex;
+  }
 
-    img#background {
-        position: absolute;
+  img#background {
+    position: absolute;
 
-        width: 100vw;
-        height: 100%;
+    width: 100vw;
+    height: 100%;
 
-        top: 0;
-        left: 0;
+    top: 0;
+    left: 0;
 
-        z-index: -100;
+    z-index: -100;
 
-
-        object-fit: cover;
-    }
+    object-fit: cover;
+  }
 </style>
 
-{% endblock %}
+{% endblock %} {% block page_content %}
+<div class="main-container">
 
-{% block page_content %}
+    <img src="static/background3.jpg"></img>
 
-    <div class="card" id="info">
-        <span>i</span>
-        <h1>What's going on?</h1>
-        <p> Type your name, and optionally PIN code (if you've received one from creator of group)
-            to log in, then hit 'draw' button to spin the wheel!
-        </p>
-      </div>
+  <div class="animation-element" id="anim">
+    {% if session["user"] %} {% for user in group.users %}
+    <p class="name">{{ user.name }}</p>
+    {% endfor %} {% endif %}
+  </div>
 
+  <div class="divisor"></div>
 
-    <div class="main-container">
+  <div class="user_list">
+    {% if not session["user"] %}
+    <form action="" method="post">
+      <label for="name">Podaj swoje imie:</label>
+      <input
+        id="name"
+        name="name"
+        class="name-field"
+        type="text"
+        value=""
+        autocomplete="off"
+      />
+      {% if group.secure %}
+      <label for="pin">PIN:</label>
+      <input
+        id="pin"
+        name="pin"
+        class="name-field"
+        type="text"
+        value=""
+        autocomplete="off"
+      />
+      {% endif %}
 
-        <div class="user_list">
-            {% if not session["user"] %}
-            <form action="" method="post">
-                <label for="name">What's your name?</label>                
-                <input id="name" name="name" class="name-field" type="text" value="" autocomplete="off">
-                {% if group.secure %}
-                <label for="pin">PIN:</label>                
-                <input id="pin" name="pin" class="name-field" type="text" value="" autocomplete="off">
-                {% endif %}
+      <button class="btn btn-primary" type="" onclick="">Ok</button>
+    </form>
 
-                <button class="btn btn-primary" type="" onclick="">Enter</button>
-            </form>
+    {% else %}
 
-            {% else %}
+    <button class="btn btn-primary" onclick="draw()">Losuj!</button>
 
-            <button class="btn btn-primary" onclick="draw()">Draw</button>
-            
-            {% endif %}
+    {% endif %}
+  </div>
+</div>
 
-        </div>
-       
-       <div class="divisor"></div>
-       
-       <div class="animation-element" id="anim">
-
-        {% if session["user"] %}
-
-        {% for user in group.users %}
-            <p class="name">{{ user.name }}</p>
-        {% endfor %}
-
-        {% endif %}
-
-       </div>
-       
-     </div>
-
-    <script src="static/main.js"></script>
+<script src="static/main.js"></script>
 
 {% endblock %}
