@@ -26,4 +26,4 @@ COPY . /app/
 EXPOSE 8000
 
 # Command to run the Gunicorn server (matches the Procfile `web` entry)
-CMD ["gunicorn", "--certfile", "fullchain.pem", "--keyfile", "privkey.pem", "wsgi:app", "--log-file", "-", "--bind" "0.0.0.0:8000"]
+CMD ["gunicorn", "wsgi:app", "--log-file", "-", "--bind" "0.0.0.0:8000"]

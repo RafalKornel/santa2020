@@ -13,7 +13,7 @@ services:
     volumes:
       - .:/app
       - app_data:/data
-    command: gunicorn wsgi:app --log-file - --bind 0.0.0.0:8000
+    command: gunicorn --certfile fullchain.pem --keyfile privkey.pem wsgi:app --log-file - --bind 0.0.0.0:8000
 
 
 volumes:
