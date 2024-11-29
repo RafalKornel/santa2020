@@ -11,6 +11,8 @@
         href="{{ url_for('.index_get', group_name=group.name) }}?name={{user.name}}&pin={{user.pin}}"
         >link</a
       >
+
+      <div onclick="copy(`{{ url_for('.index_get', group_name=group.name) }}?name={{user.name}}&pin={{user.pin}}`)">copy</div>
     </p>
   </li>
   {% endfor %}
@@ -19,5 +21,11 @@
 <a href="{{ url_for('.index_get', group_name=group.name) }}"
   >Go to group page</a
 >
+
+<script>
+  function copy(text) {
+    navigator.clipboard.writeText(text)
+  }
+</script>
 
 {% endblock %}
