@@ -30,52 +30,42 @@
 
 <div class="main-container">
 
-    <img id="background" src="static/background-image.jpg"></img>
+  <img id="background" src="static/background-image.jpg"></img>
 
-
-  <div class="animation-element" id="anim">
-    {% if session["user"] %} {% for user in group.users %}
-    <p class="name">{{ user.name }}</p>
-    {% endfor %} {% endif %}
+  <div id="wylosowana" style="display: none">
+    Wylosowana osoba to:
+    <h2 id="osoba-name"></h2>
   </div>
 
-  <div class="divisor"></div>
-
-  <div class="user_list">
-    {% if not session["user"] %}
-    <form action="" method="post">
-      <label for="name">Podaj swoje imie:</label>
-      <input
-        id="name"
-        name="name"
-        class="name-field"
-        type="text"
-        value=""
-        autocomplete="off"
-      />
-      {% if group.secure %}
-      <label for="pin">PIN:</label>
-      <input
-        id="pin"
-        name="pin"
-        class="name-field"
-        type="text"
-        value=""
-        autocomplete="off"
-      />
-      {% endif %}
-
-      <button class="btn btn-primary" type="" onclick="">Ok</button>
-    </form>
-
-    {% else %}
-
-    <button class="btn btn-primary" onclick="draw()">Losuj!</button>
-
+  <div id="do-wylosowania" style="display: contents">
+  {% if session["user"] %} 
+    <div class="animation-element" id="anim">
+      {% for user in group.users %}
+      <p class="name">{{ user.name }}</p>
+      {% endfor %}
+    </div>
     {% endif %}
+
+    <div class="divisor" id="divisor"></div>
+
+    <div class="user_list" id="btn-container">
+      <button class="btn btn-primary" onclick="draw()">Losuj!</button>
+    </div>
   </div>
+
 </div>
 
 <script src="static/main.js"></script>
+
+
+{% if session['person'] %}
+<script>
+  console.log('here');
+  current_person = `{{ session['person'] }}`
+  document.querySelector("#osoba-name").textContent = current_person;
+  console.log(current_person)
+  showWylosowana()
+</script>
+{% endif %}
 
 {% endblock %}

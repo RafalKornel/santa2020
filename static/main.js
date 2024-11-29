@@ -9,7 +9,7 @@ let current_person;
 let stopOn = "";
 let slowDown = false;
 let stop = false;
-let slowDownRate = 0.02;
+let slowDownRate = 0.05;
 
 for (let i = 0; i < names.length; i++) {
   let e = names[i];
@@ -43,6 +43,7 @@ function animate(n) {
       if (stopOn == e.textContent && stop) {
         current_person = e;
         stopAnimation();
+        showWylosowana();
         return;
       }
     }
@@ -61,6 +62,14 @@ function stopAnimation() {
   stop = false;
 }
 
+function showWylosowana() {
+  const w = document.querySelector("#wylosowana");
+  const d = document.querySelector("#do-wylosowania");
+
+  w.style.display = "block";
+  d.style.display = "none";
+}
+
 async function draw() {
   if (slowDown || stop) return;
 
@@ -71,6 +80,16 @@ async function draw() {
   cancelAnimationFrame(RAF);
   animate(0);
 
+  const divisor = document.querySelector("#divisor");
+  if (divisor) {
+    divisor.style.display = "none";
+  }
+
+  const btncontainer = document.querySelector("#btn-container");
+  if (btncontainer) {
+    btncontainer.style.display = "none";
+  }
+
   let splicedScheme = window.location.href.split("/");
   let group = splicedScheme[splicedScheme.length - 1];
 
@@ -80,6 +99,8 @@ async function draw() {
 
   stopOn = draftName;
   slowDown = true;
+
+  document.querySelector("#osoba-name").textContent = draftName;
 }
 
 animate(0);

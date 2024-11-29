@@ -1,43 +1,43 @@
 body, html {
-    height: 100%;
-  }
-  
-body {
-    font-family: "Poppins", "sans-serif";
-    margin: 0;
-    width: 100vw;
-    font-size: 1.5em;
-    background: #eee;
-  }
+  height: 100%;
+}
 
-  .main-container {
-    margin: auto;
-    display: flex;
-    height: 50%;
-  }
-  
-.main-container > div {
-    margin: auto 30px;
-  }
+body {
+  font-family: "Poppins", "sans-serif";
+  margin: 0;
+  width: 100vw;
+  font-size: 1.5em;
+  background: #eee;
+}
+
+.main-container {
+  margin: auto;
+  display: flex;
+  height: 50%;
+}
+
+.main-container>div {
+  margin: auto 30px;
+}
 
 .card {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-    width: 3em;
-    height: 3em;
-    border-radius: 30px;
-    background: #8bcdcd;
-    transition: all 500ms ease;
-    clip-path: circle(50% at 50% 50%);
-    color: rgba(0, 0, 0, 0);
-    z-index: 2;
-    cursor: default;
-  }
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  width: 3em;
+  height: 3em;
+  border-radius: 30px;
+  background: #8bcdcd;
+  transition: all 500ms ease;
+  clip-path: circle(50% at 50% 50%);
+  color: rgba(0, 0, 0, 0);
+  z-index: 2;
+  cursor: default;
+}
 
-.card:hover a , .card a{
-  color: rgba(252, 248, 118, 1); 
+.card:hover a, .card a {
+  color: rgba(252, 248, 118, 1);
 }
 
 #info {
@@ -49,56 +49,64 @@ body {
   width: 250px;
   height: 300px;
 }
- 
+
 .card span {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    font-size: 1.8em;
-    transform: translate(-50%, -50%);
-    color: rgba(252, 248, 118, 1); 
-    cursor: default;
-  }
-  
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 1.8em;
+  transform: translate(-50%, -50%);
+  color: rgba(252, 248, 118, 1);
+  cursor: default;
+}
+
 .card:hover {
-    clip-path: circle(80%);
-    background: #3797a4;
-    color: rgba(252, 248, 118, 1); 
-  }
-  
+  clip-path: circle(80%);
+  background: #3797a4;
+  color: rgba(252, 248, 118, 1);
+}
+
 .card:hover p {
-    color: rgba(168, 242, 251, 1);
-  }
-  
+  color: rgba(168, 242, 251, 1);
+}
+
 .card:hover span, .card:hover span a {
-    color: rgba(0, 0, 0, 0);  
-  }
-  
+  color: rgba(0, 0, 0, 0);
+}
+
 
 .card h1 {
-    text-align: center;
-    line-height: 1.3em;
-    font-size: 2em;
-  }
-  
+  text-align: center;
+  line-height: 1.3em;
+  font-size: 2em;
+}
+
 .card p {
-    line-height: 1.5em;
-    font-size: 1.1em;
-    color: rgba(168, 242, 251, 0);
-    margin: 1.3em;
-    transition: all 500ms ease;
-  }
-  
+  line-height: 1.5em;
+  font-size: 1.1em;
+  color: rgba(168, 242, 251, 0);
+  margin: 1.3em;
+  transition: all 500ms ease;
+}
+
 .divisor {
-    width: 5px;
-    height: 100%;
-    background: #c1c1c1;
-  }
-  
+  width: 5px;
+  height: 100%;
+  background: #c1c1c1;
+}
+
+.user_list {
+  display: flex;
+}
+
+.user_list>button {
+  margin: auto 1rem;
+}
+
 .user_list form {
-    display: flex;
-    flex-direction: column;
-  }
+  display: flex;
+  flex-direction: column;
+}
 
 .user_list input {
   margin-bottom: 20px;
@@ -115,10 +123,10 @@ body {
 
 
 .name {
-      transform-origin: 50% -50%;
-      position: absolute;
-      margin: 0;
-  }
+  transform-origin: 50% -50%;
+  position: absolute;
+  margin: 0;
+}
 
 .users li {
   list-style: none;
@@ -152,7 +160,7 @@ body {
     width: 100%;
   }
 
-  .main-container > div {
+  .main-container>div {
     margin: auto 10px;
   }
 }

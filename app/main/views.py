@@ -5,54 +5,6 @@ from ..models import Group, User
 from .. import db
 from ..utilities import permutation_without_fixed_points
     
-
-@main.route("/<group_name>", methods=["GET"])
-def index_get(group_name):
-    group = Group.query.filter_by(name=group_name).first()
-
-    if group is None:
-        return redirect(url_for(".create_group"))
-
-    if "user" in session:
-        user = User.query.get(session["user"])
-        if user:
-            if user.group_id != group.id:
-                session["user"] = ""
-
-    return render_template("index.html", group=group)
-
-
-@main.route("/<group_name>", methods=["POST"])
-def index_post(group_name):
-    form = NameEntryForm()
-    form.name.data  = request.form["name"] or ""
-    if "pin" in request.form:
-        form.pin.data   = request.form["pin"]
-
-    group = Group.query.filter_by(name=group_name).first()
-
-    if form.validate():
-        name = form.name.data.strip().lower().capitalize()
-
-        if group.secure:
-            pin = form.pin.data
-            user = User.query \
-                       .filter_by(group=group) \
-                       .filter_by(name=name) \
-                       .filter_by(pin=pin) \
-                       .first()
-        else:
-            user = User.query \
-                       .filter_by(group=group) \
-                       .filter_by(name=name) \
-                       .first()
-
-        if user is not None:
-            session["user"] = user.id
-
-    return redirect( url_for(".index_get", group_name=group_name) )
-
-
 @main.route("/draw/<group_name>")
 def draw(group_name):
     group = Group.query.filter_by(name=group_name).first()
@@ -68,7 +20,11 @@ def draw(group_name):
     if user is None:
         return "User not logged (try clearing cache)", 400
 
-    return User.query.get(user.drafted_person_id).name, 200
+    name = User.query.get(user.drafted_person_id).name
+
+    session['person'] = name
+
+    return name, 200
     
 
 @main.route("/", methods=["GET", "POST"])
@@ -127,3 +83,73 @@ def group_overview(group_hash):
         return redirect(url_for(".create_group"))
 
     return render_template("group_overview.html", group=group)
+
+
+
+@main.route("/<group_name>", methods=["GET"])
+def index_get(group_name):
+    group = Group.query.filter_by(name=group_name).first()
+
+    if group is None:
+        return redirect(url_for(".create_group"))
+
+    name = request.args.get('name')  
+    pin = request.args.get('pin')  
+
+    user = None
+
+    if name:
+        authenticate(group_name, name, pin)
+        user = session['user']
+
+
+    elif "user" in session:
+        user = User.query.get(session["user"])
+        
+
+    if not user:
+        return redirect(url_for('.create_group'))
+
+
+    return render_template("index.html", group=group)
+
+
+
+@main.route("/<group_name>", methods=["POST"])
+def index_post(group_name):
+    form = NameEntryForm()
+    form.name.data  = request.form["name"] or ""
+
+    if "pin" in request.form:
+        form.pin.data   = request.form["pin"]
+
+    if form.validate():
+        name = form.name.data.strip().lower().capitalize()
+        pin = form.pin.data
+
+        authenticate(group_name, name, pin)
+
+    return redirect( url_for(".index_get", group_name=group_name) )
+
+
+def authenticate(group_name, user_name, pin):
+    group = Group.query.filter_by(name=group_name).first()
+
+    name = user_name.strip().lower().capitalize()
+
+    user = None
+
+    if group.secure:
+        user = User.query \
+                    .filter_by(group=group) \
+                    .filter_by(name=name) \
+                    .filter_by(pin=pin) \
+                    .first()
+    else:
+        user = User.query \
+                    .filter_by(group=group) \
+                    .filter_by(name=name) \
+                    .first()
+
+    if user is not None:
+        session["user"] = user.id
