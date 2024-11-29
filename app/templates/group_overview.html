@@ -8,11 +8,12 @@
     <p class="user-name">
       {{ user.name }} <strong>{{ user.pin }}</strong>
       <a
+        id="{{user.name}}"
         href="{{ url_for('.index_get', group_name=group.name) }}?name={{user.name}}&pin={{user.pin}}"
         >link</a
       >
 
-      <div onclick="copy(`{{ url_for('.index_get', group_name=group.name) }}?name={{user.name}}&pin={{user.pin}}`)">copy</div>
+      <strong onclick="copy(`{{ user.name }}`)">copy</strong>
     </p>
   </li>
   {% endfor %}
@@ -23,7 +24,11 @@
 >
 
 <script>
-  function copy(text) {
+  function copy(id) {
+    const el = document.getElementById(id);
+
+    const text = el.href;
+
     navigator.clipboard.writeText(text)
   }
 </script>
