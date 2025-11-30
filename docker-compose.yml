@@ -5,16 +5,15 @@ services:
     build: .
     container_name: python_app_web
     ports:
-      - "8000:8000"
+      - "${PORT:-8000}:8000"
     environment:
-      FLASK_ENV: development
-      SECRET_KEY: "your-secret-key"
+      FLASK_ENV: ${ENVIRONMENT:-development}
+      SECRET_KEY: ${SECRET_KEY}
       DEV_DATABASE_URL: "sqlite:////data/data-dev.sqlite"
     volumes:
       - .:/app
       - app_data:/data
     command: gunicorn wsgi:app --log-file - --bind 0.0.0.0:8000
-
 
 volumes:
   app_data:
